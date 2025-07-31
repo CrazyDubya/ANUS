@@ -156,7 +156,7 @@ class ReactAgent(BaseAgent):
                     return True
         
         # Terminate if we've reached max iterations
-        return self.current_iteration >= self.max_iterations - 1
+        return self.current_iteration >= self.max_iterations
     
     def _generate_final_answer(self, context: Dict[str, Any]) -> str:
         """
