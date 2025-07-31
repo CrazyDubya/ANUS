@@ -320,7 +320,7 @@ class AgentOrchestrator:
         logger.info(f"Primary agent created. ANUS is ready with {len(enabled_tools)} tools available")
         
         # Note: HybridAgent already creates its specialized agents in the constructor
-        if mode == "multi" or mode == "auto":
+        if mode == "multi":
             logger.info("Multiple specialized agents have been inserted into ANUS")
         
         # Register the agent
