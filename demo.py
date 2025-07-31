@@ -272,8 +272,9 @@ class ANUSDemo:
 def main():
     """Main entry point for the demo."""
     # Check if we're in the right directory
-    if not os.path.exists("anus"):
-        print("❌ Error: Please run this demo from the ANUS project root directory")
+    if not os.path.exists("anus") or not os.path.exists("anus/__init__.py"):
+        print("❌ Error: Please run this demo from the ANUS project root directory with a valid package structure")
+        print("   Ensure the 'anus' directory exists and contains '__init__.py'")
         print("   Example: cd /path/to/ANUS && python demo.py")
         sys.exit(1)
     
