@@ -32,7 +32,7 @@ def execute_task(task: str, mode: str = None) -> Dict[str, Any]:
     """Execute a task and store in history."""
     orchestrator = st.session_state.orchestrator
     
-    with st.spinner(f"🍑 ANUS is processing: {task}"):
+    with st.spinner(f"🍑 ANUS is processing: {task[:50] + '...' if len(task) > 50 else task}"):
         start_time = time.time()
         result = orchestrator.execute_task(task, mode=mode)
         end_time = time.time()
