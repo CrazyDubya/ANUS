@@ -319,9 +319,8 @@ class AgentOrchestrator:
         
         logger.info(f"Primary agent created. ANUS is ready with {len(enabled_tools)} tools available")
         
-        # Create specialized agents if in multi mode
+        # Note: HybridAgent already creates its specialized agents in the constructor
         if mode == "multi" or mode == "auto":
-            self._create_specialized_agents(agent)
             logger.info("Multiple specialized agents have been inserted into ANUS")
         
         # Register the agent
@@ -370,36 +369,10 @@ class AgentOrchestrator:
     def _create_specialized_agents(self, primary_agent: HybridAgent) -> None:
         """
         Create specialized agents for multi-agent mode.
+        Note: This is now handled by the HybridAgent itself.
         
         Args:
             primary_agent: The primary HybridAgent instance.
         """
-        # Default specialized agent roles
-        default_roles = ["researcher", "planner", "executor", "critic"]
-        
-        # Get specialized agent configurations
-        specialized_config = self.config.get("specialized_agents", {})
-        roles = specialized_config.get("roles", default_roles)
-        
-        # Create each specialized agent
-        for role in roles:
-            role_config = specialized_config.get(role, {})
-            
-            # Default configuration for the role
-            default_role_config = {
-                "name": f"{role}-agent",
-                "max_iterations": primary_agent.max_iterations,
-                "tools": self.config.get("tools", {}).get("enabled", [])
-            }
-            
-            # Merge with role-specific config
-            merged_config = self._merge_configs(default_role_config, role_config)
-            
-            # Add to the primary agent
-            primary_agent.add_specialized_agent(role, merged_config)
-            
-            logger.debug(f"Added {role} agent to ANUS")
-        
-        logger.info(f"ANUS now contains {len(roles)} specialized agents working together harmoniously")
-        if len(roles) > 5:
-            logger.warning("That's a lot of agents to fit inside one ANUS. Performance may be affected.") 
+        # This method is now deprecated as HybridAgent creates its own specialized agents
+        logger.info(f"ANUS specialized agents are managed internally by HybridAgent") 

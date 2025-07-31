@@ -144,8 +144,18 @@ class ReactAgent(BaseAgent):
         Returns:
             True if execution should terminate, False otherwise.
         """
-        # This should check if we've found a satisfactory answer
-        # Currently using a placeholder
+        # Check if we have a successful observation
+        if context.get("observations"):
+            last_observation = context["observations"][-1]
+            if isinstance(last_observation, dict):
+                # Check for successful status
+                if last_observation.get("status") == "success":
+                    return True
+                # Check for direct results (like tool results)
+                if "result" in last_observation and last_observation.get("status") != "error":
+                    return True
+        
+        # Terminate if we've reached max iterations
         return self.current_iteration >= self.max_iterations - 1
     
     def _generate_final_answer(self, context: Dict[str, Any]) -> str:

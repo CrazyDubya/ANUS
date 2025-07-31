@@ -196,11 +196,8 @@ class CodeTool(BaseTool):
         restricted_builtins = {}
         
         # Get all builtins from the real __builtins__
-        real_builtins = {}
-        if isinstance(__builtins__, dict):
-            real_builtins = __builtins__
-        else:
-            real_builtins = vars(__builtins__)
+        import builtins
+        real_builtins = vars(builtins)
         
         # Add only allowed builtins
         for name in self._ALLOWED_BUILTINS:
